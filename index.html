@@ -67,66 +67,60 @@
    </div>
 
    <script>
-    //login button event handler
-    const loginBtn=document.getElementById("login");
-    loginBtn.addEventListener("click",function(){
-    const loginArea=document.getElementById("login-area");
-    loginArea.style.display='none';
-    const transactionArea=document.getElementById("transaction-area");
-    transactionArea.style.display="block";
-
+    // Login button event handler
+    const loginBtn = document.getElementById("login");
+    loginBtn.addEventListener("click", function(){
+        const loginArea = document.getElementById("login-area");
+        loginArea.style.display = 'none';
+        const transactionArea = document.getElementById("transaction-area");
+        transactionArea.style.display = "block";
+    });
     
-    })
-    
-    //deposit button event handler
+    // Deposit button event handler
     const depositBtn = document.getElementById("addDeposit");
     depositBtn.addEventListener("click", function() {
-        const depositAmount = document.getElementById("depositAmount").value;
-        const depositNumber = getInputNumber("depositNumber");
-
+        const depositNumber = getInputNumber("depositAmount");
         if (!isNaN(depositNumber) && depositNumber > 0) {
-            const currentDeposit = document.getElementById("currentDeposit").innerText;
-            const currentDepositNumber = parseFloat(currentDeposit);
-            const totalDeposit = depositNumber + currentDepositNumber;
-            document.getElementById("currentDeposit").innerText = totalDeposit;
             updateSpanText("currentDeposit", depositNumber);  
-updateSpanText("currentBalance", depositNumber);  
+            updateSpanText("currentBalance", depositNumber);  
 
             document.getElementById("depositAmount").value = "";
-
             alert("Deposit successful!");
         } else {
             alert("Please enter a valid deposit amount.");
         }
     });
-    function updateSpanText(id,depositNumber)
-    {
-        const current=document.getElementById(id).innerText;
-        const currentNumber=parseFloat(current);
-        const totalAmount= depositNumber+currentNumber;
-        document.getElementById(id).innerText= totalAmount;
 
+    // Update span text function
+    function updateSpanText(id, amount) {
+        const current = document.getElementById(id).innerText;
+        const currentNumber = parseFloat(current);
+        const totalAmount = amount + currentNumber;
+        document.getElementById(id).innerText = totalAmount;
     }
-    //withdraw button event handler
-    const withdrawBtn=document.getElementById("addWithdraw");
-    withdrawBtn.addEventListener("click",function(){
-        const withdrawNumber=getInputNumber("withdrawAmount");
 
-    updateSpanText("currentWithdraw",withdrawNumber);
-    document.getElementById("withdrawAmount").value = "";
+    // Withdraw button event handler
+    const withdrawBtn = document.getElementById("addWithdraw");
+    withdrawBtn.addEventListener("click", function() {
+        const withdrawNumber = getInputNumber("withdrawAmount");
+        if (!isNaN(withdrawNumber) && withdrawNumber > 0) {
+            updateSpanText("currentWithdraw", withdrawNumber);
+            updateSpanText("currentBalance", -1 * withdrawNumber);
+            document.getElementById("withdrawAmount").value = "";
+            alert("Withdrawal successful!");
+        } else {
+            alert("Please enter a valid withdrawal amount.");
+        }
+    });
 
-
-    })
-    function getInputNumber(id){
-        const amount=document.getElementById(id).value;
-        const amountNumber=parseFloat(amount);
+    // Get input number function
+    function getInputNumber(id) {
+        const amount = document.getElementById(id).value;
+        const amountNumber = parseFloat(amount);
         return amountNumber;
     }
+</script>
 
-
-
-
-   </script>
     
 </body>
 </html>
